@@ -22,6 +22,14 @@ public class TakeHomeTest {
 		if (numbers.startsWith("//")) {
 			delimiter = numbers.substring(2, numbers.indexOf(System.lineSeparator()));
 			numbers = numbers.substring(numbers.indexOf(System.lineSeparator()));
+			if (delimiter.length() > 1 && !delimiter.startsWith(",") && !delimiter.endsWith(",")
+					&& delimiter.contains(",")) {
+				String[] delimiters = delimiter.split(",");
+				for (String eachDelimiter : delimiters) {
+					numbers = numbers.replaceAll(Pattern.quote(eachDelimiter), ",");
+				}
+				delimiter = ",";
+			}
 		}
 		numbers = numbers.replace(System.lineSeparator(), "");
 		int sum = 0;
@@ -86,5 +94,12 @@ public class TakeHomeTest {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		addTest("//***\n1***2***3", 6);
+		addTest("//$,@\n1$2@3", 6);
+		addTest("//@,#\n1@2#3", 6);
+		addTest("//@%,#^\n1@%2#^3", 6);
+		addTest("//@%,#^\n1\n@%2#^\n3", 6);
+		addTest("//@%,#^,^!\n1\n@%2#^\n3^!5\n", 11);
+		addTest("//[0-9]+,^.*$,\\d+\n9\n[0-9]+5^.*$\n3[0-9]+6\n", 23);
 	}
 }
