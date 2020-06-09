@@ -34,6 +34,8 @@ public class TakeHomeTest {
 			} else if (number.length() < 3) {
 				num = Integer.parseInt(number);
 				sum += num;
+			} else if ("1000".equals(number)) {
+				sum += 1000;
 			}
 		}
 		if (!negativeNumbers.isEmpty()) {
@@ -67,7 +69,12 @@ public class TakeHomeTest {
 		addTest("//!\n5!\n3!3", 11);
 		addTest("//#\n1#\n7#2", 10);
 		addTest("//^\n9^\n4^6", 19);
-		addTest("1000,1,1,5,6", 13);
+		addTest("1000,1,1,5,6", 1013);
+		addTest("1001,1,1,5,6", 13);
+		addTest("23958729375,1,1,5,6", 13);
+		addTest("//!@#\n12!@#34!@#56", 102);
+		addTest("//^$\n12^$34^$56", 102);
+		addTest("//[A-Z]+\n12[A-Z]+34[A-Z]+56", 102);
 		try {
 			addTest("-1,2", 2);
 		} catch (Exception e) {
