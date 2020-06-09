@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class TakeHomeTest {
@@ -11,12 +13,13 @@ public class TakeHomeTest {
 		System.out.println("End");
 	}
 
-	private static int add(String numbers) {
+	private static int add(String numbers) throws Exception {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
+		List<Integer> negativeNumbers = new ArrayList<>();
 		String delimiter = ",";
-		if (numbers.startsWith("//")) {			
+		if (numbers.startsWith("//")) {
 			delimiter = numbers.substring(2, numbers.indexOf(System.lineSeparator()));
 			numbers = numbers.substring(numbers.indexOf(System.lineSeparator()));
 		}
@@ -24,8 +27,17 @@ public class TakeHomeTest {
 		int sum = 0;
 		String[] split = numbers.split(Pattern.quote(delimiter));
 		for (String number : split) {
-			Integer num = Integer.parseInt(number);
-			sum += num;
+			Integer num = 0;
+			if (number.startsWith("-")) {
+				num = Integer.parseInt(number);
+				negativeNumbers.add(num);
+			} else if (number.length() < 3) {
+				num = Integer.parseInt(number);
+				sum += num;
+			}
+		}
+		if (!negativeNumbers.isEmpty()) {
+			throw new Exception("Negatives not allowed. The negative number(s) are: " + negativeNumbers);
 		}
 		return sum;
 	}
@@ -55,5 +67,16 @@ public class TakeHomeTest {
 		addTest("//!\n5!\n3!3", 11);
 		addTest("//#\n1#\n7#2", 10);
 		addTest("//^\n9^\n4^6", 19);
+		addTest("1000,1,1,5,6", 13);
+		try {
+			addTest("-1,2", 2);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			addTest("-1,-2,-3,5", 5);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
