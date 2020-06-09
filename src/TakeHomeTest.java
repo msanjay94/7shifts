@@ -13,6 +13,7 @@ public class TakeHomeTest {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
+		numbers = numbers.replace(System.lineSeparator(), "");
 		int sum = 0;
 		String[] split = numbers.split(",");
 		for (String number : split) {
@@ -24,6 +25,7 @@ public class TakeHomeTest {
 
 	private static void addTest(String input, int expectedOutput) throws Exception {
 		int output = add(input);
+		input = input.replace(System.lineSeparator(), "\\n");
 		if (expectedOutput != output) {
 			throw new Exception("Test failed for input: '" + input + "'. Output: '" + output + "'");
 		} else {
@@ -36,5 +38,9 @@ public class TakeHomeTest {
 		addTest("1,2,5", 8);
 		addTest("3,5,6", 14);
 		addTest("10,20,30", 60);
+		addTest("1\n,2,3", 6);
+		addTest("1,\n2,4", 7);
+		addTest("4\n,9\n,8", 21);
+		addTest("7\n,1,5\n", 13);
 	}
 }
