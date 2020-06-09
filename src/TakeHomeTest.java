@@ -75,6 +75,7 @@ public class TakeHomeTest {
 		addTest("//!@#\n12!@#34!@#56", 102);
 		addTest("//^$\n12^$34^$56", 102);
 		addTest("//[A-Z]+\n12[A-Z]+34[A-Z]+56", 102);
+		addTest("354274243854354843535832843702375872304,1,1,5,6", 13);
 		try {
 			addTest("-1,2", 2);
 		} catch (Exception e) {
