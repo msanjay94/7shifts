@@ -4,13 +4,15 @@ import java.util.regex.Pattern;
 
 public class TakeHomeTest {
 	public static void main(String[] args) {
-		System.out.println("Start");
 		try {
-			tests();
+			if (args == null || args.length != 1) {				
+				tests();
+			} else {
+				System.out.println(add(args[0]));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("End");
 	}
 
 	private static int add(String numbers) throws Exception {
